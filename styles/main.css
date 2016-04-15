@@ -1,0 +1,14 @@
+.centerit {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.custombutton {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+}
+.fab{
+  margin-top: 20px;
+  float:right;
+}

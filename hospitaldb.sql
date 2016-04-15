@@ -47,11 +47,12 @@ DROP TABLE IF EXISTS `emergency_contact`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `emergency_contact` (
-  `name` varchar(20) NOT NULL,
+  `fname` varchar(20) NOT NULL,
+  `lname` varchar(20) NOT NULL,
   `phone_number` int(11) unsigned NULL,
   `relationship` varchar(15) DEFAULT NULL,
   `patient_ssn` int(9) unsigned NOT NULL,
-  PRIMARY KEY (`name`,`patient_ssn`)
+  PRIMARY KEY (`fname`,`lname`,`patient_ssn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -192,12 +193,12 @@ DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `patient` (
-  `SSN` int(9) unsigned NOT NULL,
+  `ssn` int(9) unsigned NOT NULL,
   `Notes` varchar(255) DEFAULT NULL,
   `Date_admitted` varchar(20) DEFAULT NULL,
   `Date_discharged` varchar(20) DEFAULT NULL,
   `hospital_address` varchar(40) NOT NULL,
-  PRIMARY KEY (`SSN`,`hospital_address`)
+  PRIMARY KEY (`ssn`,`hospital_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -219,8 +220,8 @@ DROP TABLE IF EXISTS `personal_details`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `personal_details` (
   `patient_ssn` int(9) unsigned NOT NULL,
-  `age` int(3) unsigned DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
+  `fname` varchar(20) DEFAULT NULL,
+  `lname` varchar(20) DEFAULT NULL,
   `sex` varchar(4) DEFAULT NULL,
   `birthdate` varchar(10) DEFAULT NULL,
   `address` varchar(20) DEFAULT NULL
