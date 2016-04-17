@@ -43,8 +43,7 @@
     <div class="mdl-grid">
     <div class = "centerit">
 
-      <h4>Patients</h4>
-
+      <h4>Patients&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style = "font-size:15px;" href ="addpatient.html">New Patient</a></h4>
         <?php
         $con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
         // Check connection
@@ -63,6 +62,7 @@
         <th class='mdl-data-table__cell--non-numeric'>Date Discharged</th>
         <th class='mdl-data-table__cell--non-numeric'>Address</th>
         <th class='mdl-data-table__cell--non-numeric'></th>
+        <th class='mdl-data-table__cell--non-numeric'></th>
         </tr>";
         while($row = mysqli_fetch_array($result))
         {
@@ -73,15 +73,13 @@
         echo "<td>" . $row['Date_discharged'] . "</td>";
         echo "<td>" . $row['address'] . "</td>";
         echo "<td><a href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>Edit</td>";
+        echo "<td><a href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>New Appointment</td>";
         echo "</tr>";
         }
         echo "</table>";
         mysqli_close($con);
         ?>
 
-        <a a href ="addpatient.html" class="fab mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-          <i class="material-icons">add</i>
-        </a>
       </div>
 
     </div>
