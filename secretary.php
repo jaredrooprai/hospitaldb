@@ -24,8 +24,8 @@
   <title>Patients - hospitaldb</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,900|Roboto+Mono:400,700">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-green.min.css" />
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css"/>
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-red.min.css" />
   <script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 
@@ -34,7 +34,7 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title"><a href ="index.html">Back</a></span>
+      <span class="mdl-layout-title"><a href ="index.html"><i style="color:white;" class="material-icons">arrow_back</i></a></span>
       <!-- Add spacer, to align navigation to the right -->
     </div>
   </header>
@@ -72,8 +72,8 @@
         echo "<td>" . $row['Date_admitted'] . "</td>";
         echo "<td>" . $row['Date_discharged'] . "</td>";
         echo "<td>" . $row['address'] . "</td>";
-        echo "<td><a href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>Edit</td>";
         echo "<td><a href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>New Appointment</td>";
+        echo "<td><a style='color:grey' href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>Edit</td>";
         echo "</tr>";
         }
         echo "</table>";
