@@ -28,6 +28,13 @@
     $result2 = mysqli_query($con, $query2) or die('Error: ' . mysqli_error($con));
   }
 
+  if($_GET["job"] == "search"){
+    if ($_POST["search"] === ""){
+    }
+    else {
+    $search = $_POST["search"];
+    }
+  }
 ?>
 
 
@@ -62,17 +69,22 @@
         </a>
       </span>
       <div class="mdl-layout-spacer"></div>
-      <form action="#">
+
+      <form action="secretary.php?job=search" method = "post">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
+
             <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="sample6">
-              <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+              <input value = "<?php echo $search?>" class="mdl-textfield__input" type="text" name="search" id="search" >
+              <label class="mdl-textfield__label">Enter Text:</label>
             </div>
+
           </div>
       </form>
+
     </div>
   </header>
 
@@ -84,6 +96,17 @@
         <!-- create table and populate with patients -->
         <?php
         $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details");
+
+        if($_GET["job"] == "search"){
+          if ($_POST["search"] === ""){
+          }
+          else {
+            $search = $_POST["search"];
+
+          $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details where fname = '$search' OR lname = '$search' OR ssn = '$search' OR address = '$search' OR Date_admitted = '$search' OR Date_discharged = '$search'");
+          }
+        }
+
 
         echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--3dp'>
         <tr>
