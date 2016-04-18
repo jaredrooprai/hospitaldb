@@ -31,65 +31,79 @@
 
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title"><a href ="secretary.php"><i style="color:white;" class="material-icons">arrow_back</i></a></span>
-      <!-- Add spacer, to align navigation to the right -->
-    </div>
-  </header>
+    <header class="mdl-layout__header mdl-shadow--4dp">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">
+          <a style = "margin-left:-50px;" href ="secretary.php" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">arrow_back</i>
+          </a>
+          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="secretary.php">
+          Back
+          </a>
+        </span>
+      </div>
+    </header>
 
   <main class="mdl-layout__content">
     <div class="mdl-grid">
       <div class = "centerit">
-      <h4>Add Patient</h4>
+      <h4>New Patient</h4>
 
 
-      <form action="addpatient.php" method="post">
-        <div class="mdl-textfield mdl-js-textfield">
+      <form action="secretary.php?job=addpatient" method="post">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input mdl-textfield__input" type="text" id="fname" name = "fname">
-          <label class="mdl-textfield__label" for="sample1"> * First Name</label>
+          <label class="mdl-textfield__label" for="sample1">First Name</label>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="lname" name = "lname">
-          <label class="mdl-textfield__label" for="sample1"> * Last Name</label>
+          <label class="mdl-textfield__label" for="sample1">Last Name</label>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="Birthdate" name = "Birthdate">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="birthdate" name = "birthdate">
           <label class="mdl-textfield__label" for="sample1">Birthdate</label>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="sex" name = "sex">
-          <label class="mdl-textfield__label" for="sample1">Sex</label>
+        <br>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+          <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="M" >
+          <span class="mdl-radio__label">Male</span>
+        </label>
+        <br>
+        <br>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+          <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="F">
+          <span class="mdl-radio__label">Female</span>
+        </label>
+        <br>
+        <br>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="ssn" name = "ssn" pattern="-?[0-9]*(\.[0-9]+)?">
+          <label class="mdl-textfield__label" for="sample1">SSN</label>
+          <span class="mdl-textfield__error">Input is not a number!</span>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="ssn" name = "ssn">
-          <label class="mdl-textfield__label" for="sample1"> * SSN</label>
-        </div>
-        <br>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="patient_address" name = "patient_address">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="address" name = "address">
           <label class="mdl-textfield__label" for="sample1">Patient Address</label>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="Date_admitted" name = "Date_admitted">
           <label class="mdl-textfield__label" for="sample1">Date Admitted</label>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="Date_discharged" name = "Date_discharged">
           <label class="mdl-textfield__label" for="sample1">Date Discharged</label>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="hospital_address" name = "hospital_address">
-          <label class="mdl-textfield__label" for="sample1"> * Hospital Address</label>
+          <label class="mdl-textfield__label" for="sample1">Hospital</label>
         </div>
         <br>
-        <input style = "float:right" class="mdl-button mdl-js-button mdl-button--accent" type="submit" value="next">
+        <input style = "float:right" class="mdl-button mdl-js-button mdl-button--accent" type="submit" value="Save">
       </form>
 
 
@@ -97,6 +111,7 @@
     </div>
     </div>
   </main>
+
 
 
 </body>

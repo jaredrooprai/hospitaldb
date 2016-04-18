@@ -1,14 +1,33 @@
+
+body{
+  background-color: #F0F0F0;
+}
+.header a{
+  text-decoration: none;
+  color:white;
+  font-size:20px;
+  vertical-align: middle;
+
+}
 .centerit {
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
 }
 .custombutton {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-}
-.fab{
+  margin:auto;
+  display: block;
   margin-top: 20px;
-  float:right;
+}
+.cornerButton{
+  position: absolute;
+  z-index:1;
+  padding:20px;
+  right:0;
+  bottom:0;
+  display: block;
+}
+.mdl-button--fab{
+  display: block;
+  z-index:0;
 }

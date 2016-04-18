@@ -1,20 +1,38 @@
+<?php
+  $con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
+
+  if (mysqli_connect_errno($con))
+    {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+
+  if ($_GET["job"] == "addpatient"){
+
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
+    $birthdate = $_POST["birthdate"];
+    $sex = $_POST["options"];
+    $ssn = $_POST["ssn"];
+    $address = $_POST["address"];
+
+    $Date_admitted = $_POST["Date_admitted"];
+    $Date_discharged = $_POST["Date_discharged"];
+    $hospital_address = $_POST["hospital_address"];
+
+
+    $query1 = "INSERT INTO patient (SSN, Date_admitted, Date_discharged, hospital_address) VALUES ('". $ssn ."','". $Date_admitted ."','". $Date_discharged ."','". $hospital_address ."')";
+    $result1 = mysqli_query($con, $query1) or die('Error: ' . mysqli_error($con));
+
+
+    $query2 = "INSERT INTO personal_details (patient_ssn, fname, lname, sex, birthdate, address) VALUES ('". $ssn ."','". $fname ."','". $lname ."','". $sex ."','". $birthdate ."','". $address ."')";
+    $result2 = mysqli_query($con, $query2) or die('Error: ' . mysqli_error($con));
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html>
-<!--
-  Copyright 2015 Google Inc.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
 
 <head>
   <meta charset="utf-8">
@@ -23,7 +41,7 @@
   <meta name="theme-color" content="white">
   <title>Patients - hospitaldb</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,900|Roboto+Mono:400,700">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"/>
   <link rel="stylesheet" href="styles/main.css"/>
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-red.min.css" />
   <script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
@@ -31,11 +49,18 @@
 
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
+
+ <!-- NAV BAR -->
+  <header class="mdl-layout__header mdl-shadow--4dp">
     <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title"><a href ="index.html"><i style="color:white;" class="material-icons">arrow_back</i></a></span>
-      <!-- Add spacer, to align navigation to the right -->
+      <span class="mdl-layout-title">
+        <a style = "margin-left:-50px;" href ="index.html" class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">arrow_back</i>
+        </a>
+        <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="index.html">
+          Back Home
+        </a>
+      </span>
     </div>
   </header>
 
@@ -43,25 +68,18 @@
     <div class="mdl-grid">
     <div class = "centerit">
 
-      <h4>Patients&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style = "font-size:15px;" href ="addpatient.html">New Patient</a></h4>
+      <h4>Patients</h4>
+        <!-- create table and populate with patients -->
         <?php
-        $con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
-        // Check connection
-        if (mysqli_connect_errno())
-        {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
+        $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details");
 
-        $result = mysqli_query($con,"SELECT * FROM patient, personal_details WHERE SSN = patient_ssn");
-
-        echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'>
+        echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--3dp'>
         <tr>
         <th class='mdl-data-table__cell'>First name</th>
         <th class='mdl-data-table__cell--non-numeric'>Last Name</th>
         <th class='mdl-data-table__cell--non-numeric'>Date Admitted</th>
         <th class='mdl-data-table__cell--non-numeric'>Date Discharged</th>
         <th class='mdl-data-table__cell--non-numeric'>Address</th>
-        <th class='mdl-data-table__cell--non-numeric'></th>
         <th class='mdl-data-table__cell--non-numeric'></th>
         </tr>";
         while($row = mysqli_fetch_array($result))
@@ -72,19 +90,35 @@
         echo "<td>" . $row['Date_admitted'] . "</td>";
         echo "<td>" . $row['Date_discharged'] . "</td>";
         echo "<td>" . $row['address'] . "</td>";
-        echo "<td><a href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>New Appointment</td>";
-        echo "<td><a style='color:grey' href='editpatient.php?fname=".$row['fname']."&lname=".$row['lname']."'</a>Edit</td>";
+        echo "<td><a style='color:grey' href='selectedpatient.php?ssn=".$row['ssn']."'</a><i class='material-icons'>arrow_forward</i></td>";
         echo "</tr>";
         }
         echo "</table>";
-        mysqli_close($con);
         ?>
 
       </div>
 
     </div>
+
   </main>
+  <div class = "cornerButton">
+      <a id = "patient" href ="addpatient.html" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp">
+        <i class="material-icons">add</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="patient">
+        Add Patient
+      </div>
+  </div>
+</div>
+
 
 </body>
 
 </html>
+
+
+<?php
+
+mysqli_close($con);
+
+?>

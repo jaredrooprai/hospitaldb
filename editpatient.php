@@ -1,20 +1,25 @@
 <!DOCTYPE html>
+<?php
+
+$ssn = $_GET["ssn"];
+
+// Create connection
+$con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
+
+// Check connection
+if (mysqli_connect_errno($con))
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
+$result = mysqli_query($con,"SELECT * FROM patient, personal_details where patient_ssn='$ssn' AND ssn = '$ssn'");
+
+ while($row = mysqli_fetch_array($result))
+  {
+
+ ?>
+
 <html>
-<!--
-  Copyright 2015 Google Inc.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
 
 <head>
   <meta charset="utf-8">
@@ -31,31 +36,66 @@
 
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title"><a href ="secretary.php"><i style="color:white;" class="material-icons">arrow_back</i></a></span>
-      <!-- Add spacer, to align navigation to the right -->
-    </div>
-  </header>
+    <header class="mdl-layout__header mdl-shadow--4dp">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">
+          <a style = "margin-left:-50px;" href ="selectedpatient.php?ssn=<?php echo $ssn ?>" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">arrow_back</i>
+          </a>
+          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="selectedpatient.php?ssn=<?php echo $ssn ?>">
+          Back
+          </a>
+        </span>
+      </div>
+    </header>
 
   <main class="mdl-layout__content">
     <div class="mdl-grid">
       <div class = "centerit">
-      <h4><?php echo $_GET["fname"];?> <?php echo $_GET["lname"];?></h4>
+      <h4><?php echo $row["fname"];?> <?php echo $row["lname"];?></h4>
 
 
-      <form action="#">
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="sample1">
-          <label class="mdl-textfield__label" for="sample1">Text...</label>
+      <form action="selectedpatient.php?ssn=<?php echo $ssn?>&job=save" method="post">
+        <br>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input value = "<?php echo $row["address"];?>" class="mdl-textfield__input" type="text" id="address" name = "address">
+          <label class="mdl-textfield__label" for="sample1">Patient Address</label>
         </div>
+        <br>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input value = "<?php echo $row["Date_admitted"];?>" class="mdl-textfield__input" type="text" id="Date_admitted" name = "Date_admitted">
+          <label class="mdl-textfield__label" for="sample1">Date Admitted</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input value = "<?php echo $row["Date_discharged"];?>" class="mdl-textfield__input" type="text" id="Date_discharged" name = "Date_discharged">
+          <label class="mdl-textfield__label" for="sample1">Date Discharged</label>
+        </div>
+        <br>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input value = "<?php echo $row["hospital_address"];?>" class="mdl-textfield__input" type="text" id="hospital_address" name = "hospital_address">
+          <label class="mdl-textfield__label" for="sample1">Hospital</label>
+        </div>
+        <input style = "float:right" class="mdl-button mdl-js-button mdl-button--accent" type="submit" value="Save Changes">
       </form>
+
+
 
     </div>
     </div>
   </main>
 
+
+
 </body>
 
 </html>
+
+
+<?php
+
+}
+
+mysqli_close($con);
+?>
