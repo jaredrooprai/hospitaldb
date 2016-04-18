@@ -19,7 +19,7 @@ if ($_GET["job"] == "save"){
   $hospital_address = $_POST["hospital_address"];
 
   $update1= mysqli_query($con,"UPDATE personal_details JOIN patient SET address='$address',Date_admitted='$Date_admitted',Date_discharged='$Date_discharged',hospital_address='$hospital_address' where patient_ssn='$ssn'");
-  
+
   }
 
 $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patient_ssn='$ssn' AND ssn = '$ssn'");
@@ -41,7 +41,7 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,900|Roboto+Mono:400,700">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="styles/main.css"/>
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-red.min.css" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.teal-pink.min.css" />
   <script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 

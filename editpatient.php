@@ -30,7 +30,7 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,900|Roboto+Mono:400,700">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="styles/main.css"/>
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-red.min.css" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.teal-pink.min.css" />
   <script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 
@@ -77,6 +77,7 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
           <input value = "<?php echo $row["hospital_address"];?>" class="mdl-textfield__input" type="text" id="hospital_address" name = "hospital_address">
           <label class="mdl-textfield__label" for="sample1">Hospital</label>
         </div>
+        <br>
         <input style = "float:right" class="mdl-button mdl-js-button mdl-button--accent" type="submit" value="Save Changes">
       </form>
 
