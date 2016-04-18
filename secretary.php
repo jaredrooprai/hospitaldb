@@ -95,7 +95,7 @@
       <h4>Patients</h4>
         <!-- create table and populate with patients -->
         <?php
-        $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details");
+        $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details where patient_ssn = ssn");
 
         if($_GET["job"] == "search"){
           if ($_POST["search"] === ""){
@@ -103,7 +103,7 @@
           else {
             $search = $_POST["search"];
 
-          $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details where fname = '$search' OR lname = '$search' OR ssn = '$search' OR address = '$search' OR Date_admitted = '$search' OR Date_discharged = '$search'");
+          $result = mysqli_query($con,"SELECT * FROM patient JOIN personal_details where patient_ssn = ssn AND (fname = '$search' OR lname = '$search' OR ssn = '$search' OR address = '$search' OR Date_admitted = '$search' OR Date_discharged = '$search')");
           }
         }
 
