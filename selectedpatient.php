@@ -32,7 +32,7 @@ if ($_GET["job"] == "save"){
 
   }
 
-$result = mysqli_query($con,"SELECT * FROM patient, personal_details where patient_ssn='$ssn' AND ssn = '$ssn'");
+$result = mysqli_query($con,"SELECT personal_details.fname as fname, personal_details.lname as lname, personal_details.sex as sex, personal_details.birthdate as birthdate, personal_details.patient_ssn as ssn, personal_details.address as address, personal_details.patient_ssn, patient.Date_admitted as Date_admitted, patient.Date_discharged as Date_discharged, patient.hospital_name as hospital_name, emergency_contact.fname as efname, emergency_contact.lname as elname, emergency_contact.phone_number as ephone, emergency_contact.relationship as erelationship FROM patient JOIN personal_details JOIN related_to JOIN emergency_contact where personal_details.patient_ssn='$ssn' AND patient.ssn = personal_details.patient_ssn AND related_to.patient_ssn = patient.ssn AND related_to.contact_phone_number = emergency_contact.phone_number  ");
 
 
  while($row = mysqli_fetch_array($result))
@@ -102,6 +102,14 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
 
         <br>
         <h6><b>Hospital Name:</b> <?php echo $row["hospital_name"];?></h6>
+          <br>
+            <br>
+        <h4>Emergency Contact <?php echo $row['efname'];?> <?php echo $row['elname']?></h4>
+        <br>
+        <h6><b>Phone Number:</b> <?php echo $row["ephone"];?></h6>
+        <br>
+        <h6><b>Relationship:</b> <?php echo $row["erelationship"];?></h6>
+        <br>
 
     </div>
     </div>

@@ -49,10 +49,10 @@ DROP TABLE IF EXISTS `emergency_contact`;
 CREATE TABLE `emergency_contact` (
   `fname` varchar(20) NOT NULL,
   `lname` varchar(20) NOT NULL,
-  `phone_number` int(11) unsigned DEFAULT NULL,
+  `phone_number` int(15) unsigned NOT NULL,
   `relationship` varchar(15) DEFAULT NULL,
   `patient_ssn` int(9) unsigned NOT NULL,
-  PRIMARY KEY (`fname`,`lname`,`patient_ssn`)
+  PRIMARY KEY (`phone_number`,`patient_ssn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -249,8 +249,8 @@ DROP TABLE IF EXISTS `related_to`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `related_to` (
   `patient_ssn` int(9) unsigned NOT NULL,
-  `contact_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`patient_ssn`,`contact_name`)
+  `contact_phone_number` int(20) unsigned NOT NULL,
+  PRIMARY KEY (`patient_ssn`,`contact_phone_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

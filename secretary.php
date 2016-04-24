@@ -19,6 +19,11 @@
     $Date_discharged = $_POST["Date_discharged"];
     $hospital_name = $_POST["hospital_name"];
 
+    $efname = $_POST["efname"];
+    $elname = $_POST["elname"];
+    $ephone = $_POST["ephone"];
+    $erelationship = $_POST["erelationship"];
+
 
     $query1 = "INSERT INTO patient (SSN, Date_admitted, Date_discharged, hospital_name) VALUES ('". $ssn ."','". $Date_admitted ."','". $Date_discharged ."','". $hospital_name ."')";
     $result1 = mysqli_query($con, $query1) or die('Error: ' . mysqli_error($con));
@@ -26,6 +31,12 @@
 
     $query2 = "INSERT INTO personal_details (patient_ssn, fname, lname, sex, birthdate, address) VALUES ('". $ssn ."','". $fname ."','". $lname ."','". $sex ."','". $birthdate ."','". $address ."')";
     $result2 = mysqli_query($con, $query2) or die('Error: ' . mysqli_error($con));
+
+    $query3 = "INSERT INTO emergency_contact (fname, lname, phone_number, relationship, patient_ssn) VALUES ('". $efname ."','". $elname ."','". $ephone ."','". $erelationship ."','". $ssn ."')";
+    $result3 = mysqli_query($con, $query3) or die('Error: ' . mysqli_error($con));
+
+    $query4 = "INSERT INTO related_to (patient_ssn, contact_phone_number) VALUES ('". $ssn ."','". $ephone ."')";
+    $result4 = mysqli_query($con, $query4) or die('Error: ' . mysqli_error($con));
   }
 
   if($_GET["job"] == "search"){
