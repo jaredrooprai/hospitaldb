@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `emergency_contact`;
 CREATE TABLE `emergency_contact` (
   `fname` varchar(20) NOT NULL,
   `lname` varchar(20) NOT NULL,
-  `phone_number` int(11) unsigned NULL,
+  `phone_number` int(11) unsigned DEFAULT NULL,
   `relationship` varchar(15) DEFAULT NULL,
   `patient_ssn` int(9) unsigned NOT NULL,
   PRIMARY KEY (`fname`,`lname`,`patient_ssn`)
@@ -76,7 +76,8 @@ CREATE TABLE `equipment` (
   `name` varchar(20) NOT NULL,
   `manufacturer` varchar(20) NOT NULL,
   `type` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`name`,`manufacturer`)
+  `hospital_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`name`,`hospital_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,6 +87,7 @@ CREATE TABLE `equipment` (
 
 LOCK TABLES `equipment` WRITE;
 /*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
+INSERT INTO `equipment` VALUES ('Silkcare Gloves','Cranberry','Gloves','Foothills'),('Wave','Toshiba','MRI','Foothills');
 /*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,8 +100,8 @@ DROP TABLE IF EXISTS `hospital`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hospital` (
   `address` varchar(40) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`address`)
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -109,6 +111,7 @@ CREATE TABLE `hospital` (
 
 LOCK TABLES `hospital` WRITE;
 /*!40000 ALTER TABLE `hospital` DISABLE KEYS */;
+INSERT INTO `hospital` VALUES ('1403 29 Street NW, Calgary, AB','Foothills'),('3500 26 Ave NE, Calgary, AB','Peter Lougheed');
 /*!40000 ALTER TABLE `hospital` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,10 +124,9 @@ DROP TABLE IF EXISTS `machine`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `machine` (
   `equipment_name` varchar(40) NOT NULL,
-  `equipment_manufacturer` varchar(40) NOT NULL,
-  `equipment_type` varchar(20) NOT NULL,
+  `hospital_name` varchar(40) NOT NULL,
   `room_number` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`equipment_name`,`equipment_manufacturer`,`equipment_type`,`room_number`)
+  PRIMARY KEY (`equipment_name`,`hospital_name`,`room_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,6 +136,7 @@ CREATE TABLE `machine` (
 
 LOCK TABLES `machine` WRITE;
 /*!40000 ALTER TABLE `machine` DISABLE KEYS */;
+INSERT INTO `machine` VALUES ('Wave','Foothills',102);
 /*!40000 ALTER TABLE `machine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,8 +200,8 @@ CREATE TABLE `patient` (
   `Notes` varchar(255) DEFAULT NULL,
   `Date_admitted` varchar(20) DEFAULT NULL,
   `Date_discharged` varchar(20) DEFAULT NULL,
-  `hospital_address` varchar(40) NOT NULL,
-  PRIMARY KEY (`ssn`,`hospital_address`)
+  `hospital_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`ssn`,`hospital_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,8 +272,8 @@ DROP TABLE IF EXISTS `room`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `room` (
   `number` int(11) NOT NULL,
-  `hospital_address` varchar(40) NOT NULL,
-  PRIMARY KEY (`number`,`hospital_address`)
+  `hospital_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`number`,`hospital_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,6 +283,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
+INSERT INTO `room` VALUES (100,'Foothills'),(100,'Peter Lougheed'),(101,'Foothills'),(101,'Peter Lougheed'),(102,'Foothills'),(102,'Peter Lougheed'),(103,'Foothills'),(103,'Peter Lougheed'),(104,'Foothills'),(104,'Peter Lougheed'),(105,'Foothills'),(105,'Peter Lougheed'),(106,'Foothills'),(106,'Peter Lougheed'),(107,'Foothills'),(107,'Peter Lougheed'),(108,'Foothills'),(108,'Peter Lougheed'),(109,'Foothills'),(109,'Peter Lougheed'),(110,'Foothills'),(110,'Peter Lougheed');
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,11 +296,13 @@ DROP TABLE IF EXISTS `staff`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `staff` (
   `staffid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fname` varchar(20) DEFAULT NULL,
+  `lname` varchar(20) DEFAULT NULL,
   `access` varchar(10) NOT NULL,
   `salary` int(10) unsigned NOT NULL,
-  `hospital_address` varchar(40) NOT NULL,
-  PRIMARY KEY (`staffid`,`hospital_address`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `hospital_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`staffid`,`hospital_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,6 +311,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
+INSERT INTO `staff` VALUES (1,'Mary','Staffa','management',40000,'Foothills'),(2,'Byron ','Berstein','Medical',90000,'Foothills'),(3,'Luna','Lovegood','Medical ',90000,'Peter Lougheed');
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,11 +323,10 @@ DROP TABLE IF EXISTS `supplies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supplies` (
-  `amount` int(11) unsigned NULL,
+  `amount` int(11) unsigned DEFAULT NULL,
   `equipment_name` varchar(40) NOT NULL,
-  `equipment_manufacturer` varchar(40) NOT NULL,
-  `equipment_type` varchar(40) NOT NULL,
-  PRIMARY KEY (`equipment_name`,`equipment_manufacturer`,`equipment_type`)
+  `hospital_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`equipment_name`,`hospital_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -330,6 +336,7 @@ CREATE TABLE `supplies` (
 
 LOCK TABLES `supplies` WRITE;
 /*!40000 ALTER TABLE `supplies` DISABLE KEYS */;
+INSERT INTO `supplies` VALUES (210,'Silkcare gloves','Foothills');
 /*!40000 ALTER TABLE `supplies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -342,4 +349,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-14 14:34:14
+-- Dump completed on 2016-04-23 22:07:52

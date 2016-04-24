@@ -1,3 +1,8 @@
+<?php
+  $con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
+  $hospital_name = $_GET["hospital_name"];
+  ?>
+
 <!DOCTYPE html>
 <html>
 <!--
@@ -21,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Android Theme Color -->
   <meta name="theme-color" content="white">
-  <title>Add Patient - hospitaldb</title>
+  <title>Add <?php echo $hospital_name ?> Staff - hospitaldb</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,900|Roboto+Mono:400,700">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="styles/main.css"/>
@@ -34,10 +39,10 @@
     <header class="mdl-layout__header mdl-shadow--4dp">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">
-          <a style = "margin-left:-50px;" href ="secretary.php" class="mdl-button mdl-js-button mdl-button--icon">
+          <a style = "margin-left:-50px;" href ="viewstaff.php?name=<?php echo $hospital_name ?>" class="mdl-button mdl-js-button mdl-button--icon">
             <i class="material-icons">arrow_back</i>
           </a>
-          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="secretary.php">
+          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="viewstaff.php?name=<?php echo $hospital_name ?>">
           Back
           </a>
         </span>
@@ -47,10 +52,10 @@
   <main class="mdl-layout__content">
     <div class="mdl-grid">
       <div class = "centerit">
-      <h4>New Patient</h4>
+      <h4>New <?php echo $hospital_name ?> Staff</h4>
 
 
-      <form action="secretary.php?job=addpatient" method="post">
+      <form action="viewstaff.php?name=<?php echo $hospital_name?>&job=addstaff" method="post">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input mdl-textfield__input" type="text" id="fname" name = "fname">
           <label class="mdl-textfield__label" for="sample1">First Name</label>
@@ -60,49 +65,20 @@
           <label class="mdl-textfield__label" for="sample1">Last Name</label>
         </div>
         <br>
+        <br>
+
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="birthdate" name = "birthdate">
-          <label class="mdl-textfield__label" for="sample1">Birthdate</label>
+          <input class="mdl-textfield__input" type="text" id="access" name = "access">
+          <label class="mdl-textfield__label" for="sample1">Access</label>
         </div>
         <br>
         <br>
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-          <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="M" >
-          <span class="mdl-radio__label">Male</span>
-        </label>
-        <br>
-        <br>
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-          <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="F">
-          <span class="mdl-radio__label">Female</span>
-        </label>
-        <br>
-        <br>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="ssn" name = "ssn" pattern="-?[0-9]*(\.[0-9]+)?">
-          <label class="mdl-textfield__label" for="sample1">SSN</label>
-          <span class="mdl-textfield__error">Input is not a number!</span>
+          <input class="mdl-textfield__input" type="text" id="salary" name = "salary">
+          <label class="mdl-textfield__label" for="sample1">Salary</label>
         </div>
         <br>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="address" name = "address">
-          <label class="mdl-textfield__label" for="sample1">Patient Address</label>
-        </div>
-        <br>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="Date_admitted" name = "Date_admitted">
-          <label class="mdl-textfield__label" for="sample1">Date Admitted</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="Date_discharged" name = "Date_discharged">
-          <label class="mdl-textfield__label" for="sample1">Date Discharged</label>
-        </div>
-        <br>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="hospital_name" name = "hospital_name">
-          <label class="mdl-textfield__label" for="sample1">Hospital</label>
-        </div>
-        <br>
+
         <input style = "float:right" class="mdl-button mdl-js-button mdl-button--accent" type="submit" value="Save">
       </form>
 

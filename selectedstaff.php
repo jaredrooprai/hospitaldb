@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-$ssn = $_GET["ssn"];
-
+$staffid = $_GET["staffid"];
 // Create connection
 $con=mysqli_connect("127.0.0.1","root","", "hospitaldb");
 
@@ -22,17 +21,8 @@ if ($_GET["job"] == "save"){
 
   }
 
-  if ($_GET["job"] == "addappointment"){
-    $room_number = $_POST["room_number"];
-    $staffid = $_POST["staffid"];
-    $time = $_POST["time"];
 
-    $query1 = "INSERT INTO appointment (room_number, staff_staffID, patient_SSN, time) VALUES ('". $room_number ."','". $staffid ."','". $ssn ."','". $time ."')";
-    $result1 = mysqli_query($con, $query1) or die('Error: ' . mysqli_error($con));
-
-  }
-
-$result = mysqli_query($con,"SELECT * FROM patient, personal_details where patient_ssn='$ssn' AND ssn = '$ssn'");
+$result = mysqli_query($con,"SELECT * FROM staff where staffid='$staffid' ");
 
 
  while($row = mysqli_fetch_array($result))
@@ -56,16 +46,15 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
 </head>
 
 <!-- php to get info with ssn -->
-
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-shadow--4dp">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">
-          <a style = "margin-left:-50px;" href ="secretary.php" class="mdl-button mdl-js-button mdl-button--icon">
+          <a style = "margin-left:-50px;" href ="viewstaff.php?name=<?php echo $row['hospital_name']?>" class="mdl-button mdl-js-button mdl-button--icon">
             <i class="material-icons">arrow_back</i>
           </a>
-          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="secretary.php">
+          <a class="mdl-button mdl-js-button" style = "font-weight:400; text-transform:none; padding-left:10px; color:white; font-size:18px; vertical-align:center" href ="viewstaff.php?name=<?php echo $row['hospital_name']?>">
           Back
           </a>
         </span>
@@ -81,41 +70,21 @@ $result = mysqli_query($con,"SELECT * FROM patient, personal_details where patie
       <h4><?php echo $row['fname'];?> <?php echo $row['lname']?></h4>
 
         <br>
-        <h6><b>Birthdate:</b> <?php echo $row["birthdate"];?></h6>
+        <h6><b>Staffid:</b>  <?php echo $row["staffid"];?></h6>
 
         <br>
-        <h6><b>Sex:</b>  <?php echo $row["sex"];?></h6>
+        <h6><b>Access:</b>  <?php echo $row["access"];?></h6>
 
         <br>
-        <h6><b>SSN:</b>  <?php echo $row["ssn"];?></h6>
+        <h6><b>Salary:</b> <?php echo $row["salary"];?></h6>
 
         <br>
-        <h6><b>Patient Address:</b> <?php echo $row["address"];?></h6>
 
-        <br>
-        <br>
-
-        <h6><b>Date Admitted:</b> <?php echo $row["Date_admitted"];?></h6>
-
-        <br>
-        <h6><b>Date discharged:</b> <?php echo $row["Date_discharged"];?></h6>
-
-        <br>
-        <h6><b>Hospital Name:</b> <?php echo $row["hospital_name"];?></h6>
+        <h6><b>Works at Hospital:</b> <?php echo $row["hospital_name"];?></h6>
 
     </div>
     </div>
   </main>
-
-  <div class = "cornerButton">
-    <a id = "schedule" href ="addappointment.php?ssn=<?php echo $ssn ?>" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp">
-      <i class="material-icons">perm_contact_calendar</i>
-    </a>
-    <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="schedule">
-      New Appointment
-    </div>
-  </div>
-</body>
 
 
 </html>
