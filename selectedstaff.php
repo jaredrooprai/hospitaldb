@@ -12,13 +12,10 @@ if (mysqli_connect_errno($con))
   }
 
 if ($_GET["job"] == "save"){
-  $address = $_POST["address"];
-  $Date_admitted = $_POST["Date_admitted"];
-  $Date_discharged = $_POST["Date_discharged"];
+  $access = $_POST["access"];
+  $salary = $_POST["salary"];
   $hospital_name = $_POST["hospital_name"];
-
-  $update1= mysqli_query($con,"UPDATE personal_details JOIN patient SET address='$address',Date_admitted='$Date_admitted',Date_discharged='$Date_discharged',hospital_name='$hospital_name' where patient_ssn='$ssn'");
-
+  $update1= mysqli_query($con,"UPDATE staff SET access='$access',salary='$salary',hospital_name='$hospital_name' where staffid = '$staffid'");
   }
 
 
@@ -59,7 +56,7 @@ $result = mysqli_query($con,"SELECT * FROM staff where staffid='$staffid' ");
           </a>
         </span>
         <div class="mdl-layout-spacer"></div>
-        <a href ="editpatient.php?ssn=<?php echo $ssn ?>" class="mdl-button mdl-js-button mdl-button--icon mdl-textfield--align-right" for="fixed-header-drawer-exp">
+        <a href ="editstaff.php?staffid=<?php echo $staffid ?>" class="mdl-button mdl-js-button mdl-button--icon mdl-textfield--align-right" for="fixed-header-drawer-exp">
           <i class="material-icons">create</i>
         </a>
       </div>
